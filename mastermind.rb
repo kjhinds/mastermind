@@ -7,7 +7,7 @@ def play_game
 end
 
 def play_again
-  puts 'Would you like to play again?'
+  puts 'Would you like to play again? (y/n)'
   response = gets.chomp.downcase
   if response == 'y'
     play_game

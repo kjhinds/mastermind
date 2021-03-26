@@ -1,7 +1,7 @@
 module Display
   def display_intro
     puts "Let's play Mastermind!"
-    puts "Do you know how to play? (y/n)"
+    puts 'Do you know how to play? (y/n)'
   end
 
   def display_instructions
@@ -11,12 +11,16 @@ module Display
     puts 'You have 12 chances to guess the right number!'
   end
 
-  def ask_guessers
-    puts 'How many players will be guessing?'
+  def ask_include_computer
+    puts 'Do you want to include a computer player? (y/n)'
   end
 
-  def guessers_error
-    puts 'Invalid input. Enter a number greater than 1.'
+  def ask_number_humans
+    puts 'How many humans will be playing?'
+  end
+
+  def humans_error
+    puts 'Invalid input. Enter a number greater than 0.'
   end
 
   def ask_name(number)
@@ -30,4 +34,35 @@ module Display
     puts "Total players: #{players.length}"
   end
 
+  def secret_chosen(digits)
+    puts "The secret number has #{digits} digits!"
+  end
+
+  def ask_mastermind
+    puts 'Which player will be the mastermind (picking the secret number)?'
+  end
+
+  def ask_secret_number
+    puts 'Pick a secret number.'
+  end
+
+  def ask_guess
+    puts 'Take a guess!'
+  end
+
+  def numbers_correct(number)
+    puts "You have #{number} numbers correct!"
+  end
+
+  def positions_correct(number)
+    puts "You have #{number} numbers in the right spot!"
+  end
+
+  def guesses_left(number)
+    puts "You have #{number} guesses left!"
+  end
+
+  def invalid_player_number(players)
+    puts "Enter a number between 1 and #{players.length}."
+  end
 end
