@@ -1,13 +1,15 @@
 class Player
-  attr_reader :name, :number, :mastermind
+  attr_reader :name, :number, :computer
 
-  def initialize(name, number)
-    @name = name
-    @number = number
-    @mastermind = false
+  @mastermind = 0
+
+  class << self
+    attr_accessor :mastermind
   end
 
-  def set_mastermind
-    @mastermind = true
+  def initialize(name, number, computer)
+    @name = name
+    @number = number
+    @computer = computer
   end
 end

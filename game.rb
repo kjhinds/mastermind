@@ -9,18 +9,41 @@ class Game
   def initialize
     @board = Board.new
     @players = []
+    @current_turn = 0
   end
 
   def play
     introduction
     game_setup
     turns
+    conclusion
   end
 
   private
 
+  def conclusion
+    @board.secret_found? ? display_congratulations : display_gameover
+  end
+
   def turns
-    
+    current_player = @players[@current_turn]
+    make_guess(current_player.name) unless current_player == who_is_mastermind
+    return if @board.secret_found? || @board.guesses_left.zero?
+
+    @current_turn == @players.length - 1 ? @current_turn = 0 : @current_turn += 1
+    turns
+  end
+
+  def make_guess(name)
+    ask_guess(name)
+    guess = gets.chomp
+    if valid_secret_number?(guess)
+      numbers, positions, remaining = @board.check_guess(guess)
+      display_validation(numbers, positions, remaining)
+    else
+      invalid_secret_number
+      make_guess(name)
+    end
   end
 
   def introduction
@@ -55,15 +78,38 @@ class Game
     ask_mastermind
     response = gets.chomp.to_i
     if response.between?(1, @players.length)
-      @players[response - 1].set_mastermind
+      Player.mastermind = response
     else
-      invalid_player_number(@players)
+      invalid_player_number(@players.length)
       pick_mastermind
     end
   end
 
   def pick_secret_number
+    if who_is_mastermind.computer
+      @board.secret = "#{rand(10)}#{rand(10)}#{rand(10)}#{rand(10)}"
+    else
+      player_pick_secret
+    end
+  end
 
+  def who_is_mastermind
+    @players[Player.mastermind - 1]
+  end
+
+  def player_pick_secret
+    ask_secret_number
+    response = gets.chomp
+    if valid_secret_number?(response)
+      @board.secret = response
+    else
+      invalid_secret_number
+      player_pick_secret
+    end
+  end
+
+  def valid_secret_number?(string)
+    string.length == 4 && string.chars.all? { |c| c.match?(/[[:digit:]]/) }
   end
 
   def total_players
@@ -76,11 +122,11 @@ class Game
 
   def create_player(number, computer: false)
     if computer
-      Computer.new('Computer', number)
+      Player.new('Computer', number, computer)
     else
       ask_name(number)
       response = gets.chomp
-      Player.new(response, number)
+      Player.new(response, number, computer)
     end
   end
 end
