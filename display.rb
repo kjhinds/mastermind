@@ -42,9 +42,9 @@ module Display
     puts 'Which player will be the mastermind (picking the secret number)?'
   end
 
-  def ask_secret_number
-    puts 'Pick a secret number with 4 digits.'
-  end
+  # def ask_secret_number
+  #   puts 'Pick a secret number with 4 digits.'
+  # end
 
   def ask_guess(name)
     puts "It's #{name}'s turn."
@@ -61,15 +61,16 @@ module Display
     puts 'You won!'
   end
 
-  def display_gameover
+  def display_gameover(secret)
     puts 'You ran out of guesses!'
+    puts "The secret number was #{secret}"
   end
 
   def invalid_player_number(total_players)
     puts "Enter a number between 1 and #{total_players}."
   end
 
-  def invalid_secret_number
-    puts 'Invalid number!  Must be: ####'
-  end
+  # def invalid_secret_number
+  #   puts 'Invalid number!  Must be: ####'
+  # end
 end
