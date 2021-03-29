@@ -1,5 +1,5 @@
 class Player
-  attr_reader :name, :number, :computer
+  attr_reader :name, :number
 
   @mastermind = 0
 
@@ -7,32 +7,9 @@ class Player
     attr_accessor :mastermind
   end
 
-  def initialize(name, number, computer)
+  def initialize(name, number)
     @name = name
     @number = number
-    @computer = computer
-  end
-
-  def make_guess
-    ask_guess
-    guess = gets.chomp
-    if valid_secret_number?(guess)
-      guess
-    else
-      invalid_secret_number
-      make_guess
-    end
-  end
-
-  def pick_secret
-    ask_secret_number
-    response = gets.chomp
-    if valid_secret_number?(response)
-      response
-    else
-      invalid_secret_number
-      pick_secret
-    end
   end
 
   def valid_secret_number?(string)

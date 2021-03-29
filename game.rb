@@ -2,6 +2,7 @@ require_relative 'display'
 require_relative 'board'
 require_relative 'player'
 require_relative 'computer'
+require_relative 'human'
 
 class Game
   include Display
@@ -31,6 +32,8 @@ class Game
       guess = current_player.make_guess
       numbers, positions, remaining = @board.check_guess(guess)
       display_validation(numbers, positions, remaining)
+      computer = @players.find { |player| player.instance_of?(Computer) }
+      computer&.record_guess(guess, numbers, positions)
     end
     return if @board.secret_found? || @board.guesses_left.zero?
 
@@ -95,11 +98,11 @@ class Game
 
   def create_player(number, computer: false)
     if computer
-      Computer.new('Computer', number, computer)
+      Computer.new('Computer', number)
     else
       ask_name(number)
       response = gets.chomp
-      Player.new(response, number, computer)
+      Human.new(response, number)
     end
   end
 end
