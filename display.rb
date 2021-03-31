@@ -5,7 +5,7 @@ module Display
   end
 
   def display_instructions
-    puts 'A secret number is chosen'
+    puts 'A secret number is chosen (4 digits using numbers 1 - 8)'
     puts 'The guessers try to...  guess the secret number'
     puts 'Guessers will get hints after each guess'
     puts 'You have 12 chances to guess the right number!'

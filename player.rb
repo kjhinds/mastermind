@@ -13,7 +13,7 @@ class Player
   end
 
   def valid_secret_number?(string)
-    string.length == 4 && string.chars.all? { |c| c.match?(/[[:digit:]]/) }
+    string.length == 4 && string.chars.all? { |c| c.match?(/[1-8]/) }
   end
 
   def ask_guess
@@ -22,10 +22,10 @@ class Player
   end
 
   def ask_secret_number
-    puts 'Pick a secret number with 4 digits.'
+    puts 'Pick a secret number with 4 digits using numbers 1 - 8.'
   end
 
   def invalid_secret_number
-    puts 'Invalid number!  Must be: ####'
+    puts 'Invalid number!  Must be: ####  Do not include 0s or 9s.'
   end
 end
