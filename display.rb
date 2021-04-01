@@ -57,12 +57,44 @@ module Display
     puts "You have #{remaining} guesses left!"
   end
 
+  def display_guess(guess)
+    puts "The guess was #{colored(guess)}"
+  end
+
+  def colored(string)
+    temp = string.chars.map do |char|
+      case char
+      when '1'
+        char.bg_red
+      when '2'
+        char.bg_blue
+      when '3'
+        char.bg_brown
+      when '4'
+        char.bg_green
+      when '5'
+        char.bg_magenta
+      when '6'
+        char.bg_gray
+      when '7'
+        char.bg_cyan
+      else
+        char
+      end
+    end
+    temp.join('')
+  end
+
   def display_congratulations
     puts 'You won!'
   end
 
   def display_gameover
     puts 'You ran out of guesses!'
+<<<<<<< Updated upstream
+=======
+    puts "The secret number was #{colored(secret)}"
+>>>>>>> Stashed changes
   end
 
   def invalid_player_number(total_players)

@@ -27,7 +27,18 @@ class Game
 
   def turns
     current_player = @players[@current_turn]
+<<<<<<< Updated upstream
     make_guess(current_player.name) unless current_player == who_is_mastermind
+=======
+    unless current_player == who_is_mastermind
+      guess = current_player.make_guess
+      display_guess(guess)
+      numbers, positions, remaining = @board.check_guess(guess)
+      display_validation(numbers, positions, remaining)
+      computer = @players.find { |player| player.instance_of?(Computer) }
+      computer&.record_guess(guess, numbers, positions)
+    end
+>>>>>>> Stashed changes
     return if @board.secret_found? || @board.guesses_left.zero?
 
     @current_turn == @players.length - 1 ? @current_turn = 0 : @current_turn += 1
